@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BGM : MonoBehaviour
 {
+    //BGM切り替え用スクリプト
+
     AudioSource audioSource;
     public AudioClip[] music;
     public static bool[] musicTrigger;
@@ -22,7 +24,7 @@ public class BGM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < music.Length; i++)
+        for (int i = 0; i < music.Length; i++)　//BGM切り替え
         {
             if (musicTrigger[i])
             {

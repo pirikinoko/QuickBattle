@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SoundEffect : MonoBehaviour
 {
+    //効果音呼び出しスクリプト
+
     AudioSource audioSource;
     public AudioClip[] SE;
     public static bool[] SETrigger;

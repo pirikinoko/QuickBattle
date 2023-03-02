@@ -65,20 +65,20 @@ public class Player : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("CameraTrigger"))
+        if (col.gameObject.CompareTag("CameraTrigger"))　　//カメラ切り替え
         {
             
             if (isMoving && trigger == 0)
             {
-                if (x > 0) { cameraPos.x = col.gameObject.GetComponent<CameraTrigger>().rightX; }
-                else if (x < 0) { cameraPos.x = col.gameObject.GetComponent<CameraTrigger>().leftX; }
-                
-                if (y > 0) { cameraPos.y = col.gameObject.GetComponent<CameraTrigger>().upperY; }
-                else if (y < 0) { cameraPos.y = col.gameObject.GetComponent<CameraTrigger>().lowerY; }
+                if (x > 0) { cameraPos.x = col.gameObject.GetComponent<CameraTrigger>().rightX; }　//右に進んでるとき
+                else if (x < 0) { cameraPos.x = col.gameObject.GetComponent<CameraTrigger>().leftX; } //左に進んでるとき
+
+                if (y > 0) { cameraPos.y = col.gameObject.GetComponent<CameraTrigger>().upperY; }　//上にすすんでいるとき
+                else if (y < 0) { cameraPos.y = col.gameObject.GetComponent<CameraTrigger>().lowerY; }　//下にすすんでいるとき
                 trigger = 1;
             }
         }
-        if (col.gameObject.CompareTag("Enemy"))
+        if (col.gameObject.CompareTag("Enemy"))　//シンボルエンカウント
         {
             col.gameObject.SetActive(false);
             battle.inBattle = true;

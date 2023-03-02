@@ -62,7 +62,7 @@ public class Battle : MonoBehaviour
     void Start()
     {
         //ハイスコアロード
-        highScore = PlayerPrefs.GetInt("highScore", 0);
+        //highScore = PlayerPrefs.GetInt("highScore", 0);
         highScoreText.text = "HighScore: " + highScore;
 
         //初期化処理
@@ -85,7 +85,7 @@ public class Battle : MonoBehaviour
         skillCount = 0;
         killed = 0;
         textLog.text = null;
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++) 
         {
             if (skills[i] != null) { skillCount++; }
             skillSlot[i].SetActive(false);
@@ -106,10 +106,11 @@ public class Battle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //プレイヤー&敵ステータス表示
         playerHP.text = pHP.ToString();
         playerMP.text = pMP.ToString();
         playerATK.text = pATK.ToString();
-        if (pState == "Fire") { playerState.sprite = fire; }
+        if (pState == "Fire") { playerState.sprite = fire; }　　//状態異常表示
         else if (pState == "Regen") { playerState.sprite = regen; }
         else { playerState.sprite = null; }
         if (inBattle)
@@ -152,11 +153,10 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void StartBattle()
+    void StartBattle()　//初期化
     {
-        if (count == 0)
-        {
-            
+        if (count == 0)　
+        {        
             battlePanel.SetActive(true);
             battlePanelFront.SetActive(true);
             turn = 1;
@@ -190,75 +190,23 @@ public class Battle : MonoBehaviour
         switch (phase)
         {
             case 1:
-                if(pStan == true) { phase = 3; pStan = false; }
-                else if (!(turnOver)) { Phase1(); }
+                Phase1();
                 break;
             case 2:
-                if(act == "SKL")
-                {
-                    if (skillClicked != 999)
-                    {
-                        if (CheckMP(skills[skillClicked]) <= pMP)
-                        {
-                            Skill(skills[skillClicked], "Player");
-                            skillClicked = 999;
-                            nextButton.SetActive(true);
-                            backButton.SetActive(false);
-                            for (int i = 0; i < skillSlot.Length; i++)
-                            {
-                                skillSlot[i].SetActive(false);
-                            }
-                            act = null;
-
-                        }
-                        else
-                        {
-                            skillClicked = 999;
-                            textLog.text = "MPが不足しています";
-                        }
-                    }
-                    if (turnOver && Input.GetMouseButtonDown(0)) { turnOver = false; }
-                }
-
-                
-                if (!(turnOver)){ Phase2(); }
-
+                Phase2();
                 break;
             case 3:
-                if(eHP <= 0)
-                {
-                    if (eName == "魔王")
-                    {
-                        gameEnd = true;
-                    }
-                    phase = 7;
-                    turnOver = false;
-                    killed++;
-                }
-                else if (eStan == true) { phase = 1; eStan = false; }
-                else if (!(turnOver)) { Phase3(); }
+                Phase3();
                 break;
             case 4:
-                if(pHP <= 0) { phase = 11; }
-                else if (!(turnOver)) { Phase4(); }
+                Phase4();
                 break;
             case 5:
-                if (!turnOver){ Phase5(); }
-                if (pHP <= 0) { phase = 11; turnOver = false; }
+                Phase5();
                 break;
             case 6:
-                if (!turnOver) { Phase6(); }
-                if (eHP <= 0)
-                {
-                    if (eName == "魔王")
-                    {
-                        gameEnd = true;
-                    }
-                    phase = 7;
-                    turnOver = false;
-                    killed++;
-                }
-                    break;
+                Phase6();
+                break;
             case 7:
                 Phase7();
                 break;
@@ -272,10 +220,10 @@ public class Battle : MonoBehaviour
                 Phase10();
                 break;
             case 11:
-                if (!turnOver) { Phase11(); }        
+               Phase11(); 
                 break;
             case 12:
-                SceneManager.LoadScene("Main");
+               Phase12();   
                 break;
             case 13:
                 Phase13();
@@ -284,161 +232,232 @@ public class Battle : MonoBehaviour
     }
     void Phase1()  //プレイヤー行動選択
     {
-        act = null;
-        deffence = false;
-        if(pCharge && turn > pChargedTurn + 1) { pCharge =  false; }
-        if(eCharge && turn > eChargedTurn + 1) { eCharge = false; }
-        textLog.text = "行動を選択してください";
-        //行動ボタンアクティブ()
-        atkButton.SetActive(true);
-        defButton.SetActive(true);
-        skillButton.SetActive(true);
-        nextButton.SetActive(false);
-        backButton.SetActive(false);
-        damageGive = 0;
-        damageTake = 0;
-        for (int i = 0; i < skillSlot.Length; i++)
+        if (pStan == true) { phase = 3; pStan = false; } //スタンしているなら自分のターンをスキップし敵のターン
+        if (!(turnOver))
         {
-            skillSlot[i].SetActive(false);
+            act = null;
+            deffence = false;
+            if (pCharge && turn > pChargedTurn + 1) { pCharge = false; }
+            if (eCharge && turn > eChargedTurn + 1) { eCharge = false; }
+            textLog.text = "行動を選択してください";
+            //行動ボタンアクティブ()
+            atkButton.SetActive(true);
+            defButton.SetActive(true);
+            skillButton.SetActive(true);
+            nextButton.SetActive(false);
+            backButton.SetActive(false);
+            damageGive = 0;
+            damageTake = 0;
+            for (int i = 0; i < skillSlot.Length; i++)
+            {
+                skillSlot[i].SetActive(false);
+            }
+            turnOver = true;
         }
-        turnOver = true;
+        
     }
     void Phase2()  //プレイヤー行動反映
     {
-        atkButton.SetActive(false);
-        defButton.SetActive(false);
-        skillButton.SetActive(false);
-        switch (act)
+        if (!(turnOver))
         {
-            case "ATK":
-                damageGive = pATK;
-                if (pCharge) { damageGive *= 2; }
-                textLog.text = string.Format("{0}に{1}ダメージ!", eName, damageGive);
-                eHP -= damageGive;
-                SoundEffect.SETrigger[1] = true;
-                slashAnim.SetTrigger("On");
-                slashAnim.SetTrigger("Off");          
-                nextButton.SetActive(true);
-                break;
+            atkButton.SetActive(false);
+            defButton.SetActive(false);
+            skillButton.SetActive(false);
+            switch (act)
+            {
+                case "ATK":
+                    damageGive = pATK;
+                    if (pCharge) { damageGive *= 2; }
+                    textLog.text = string.Format("{0}に{1}ダメージ!", eName, damageGive);
+                    eHP -= damageGive;
+                    SoundEffect.SETrigger[1] = true;
+                    slashAnim.SetTrigger("On");
+                    slashAnim.SetTrigger("Off");
+                    nextButton.SetActive(true);
+                    break;
 
-            case "DEF":
-                textLog.text = "守りを固めている";
-                deffence = true;
-                SoundEffect.SETrigger[2] = true;
-                nextButton.SetActive(true);
-                break;
+                case "DEF":
+                    textLog.text = "守りを固めている";
+                    deffence = true;
+                    SoundEffect.SETrigger[2] = true;
+                    nextButton.SetActive(true);
+                    break;
 
-            case "SKL":
-                textLog.text = "特技を選択してください";
-                for (int i = 0; i < skillCount; i++)
-                {
-                    skillSlot[i].SetActive(true);
-                }
-                backButton.SetActive(true);
+                case "SKL":
+                    textLog.text = "特技を選択してください";
+                    for (int i = 0; i < skillCount; i++)
+                    {
+                        skillSlot[i].SetActive(true);
+                    }
+                    backButton.SetActive(true);
 
-                break;
-            case "Back":
-                for (int i = 0; i < skillCount; i++)
-                {
-                    skillSlot[i].SetActive(false);
-                }
-                phase = 1;
-                return;
+                    break;
+                case "Back":
+                    for (int i = 0; i < skillCount; i++)
+                    {
+                        skillSlot[i].SetActive(false);
+                    }
+                    phase = 1;
+                    return;
 
+            }
+            turnOver = true;
         }
-        turnOver = true;
-      
+        if (act == "SKL")
+        {
+            if (skillClicked != 999)
+            {
+                if (CheckMP(skills[skillClicked]) <= pMP)
+                {
+                    Skill(skills[skillClicked], "Player");
+                    skillClicked = 999;
+                    nextButton.SetActive(true);
+                    backButton.SetActive(false);
+                    for (int i = 0; i < skillSlot.Length; i++)
+                    {
+                        skillSlot[i].SetActive(false);
+                    }
+                    act = null;
+
+                }
+                else
+                {
+                    skillClicked = 999;
+                    textLog.text = "MPが不足しています";
+                }
+            }
+            if (turnOver && Input.GetMouseButtonDown(0)) { turnOver = false; }
+        }
+
+
+
     }
     void Phase3() //敵行動宣言
     {
-        damageGive = 0;
-        damageTake = 0;
-        EnemyAct();
-        SoundEffect.SETrigger[10] = true;
+        if (eStan == true) { phase = 1; eStan = false; }
 
-        switch (enemyAct)
+        else if (eHP <= 0)
         {
-            case "Attack":
-                textLog.text = string.Format("{0}の攻撃!", eName);
-               
-                break;
-
-            case "Skill1":
-                textLog.text = string.Format("{0}の{1}!", eName, eSkill1);
-                break;
-
-            case "Skill2":
-                textLog.text = string.Format("{0}の{1}!", eName, eSkill2);
-                break;
-
+            if (eName == "魔王")
+            {
+                gameEnd = true;
+            }
+            phase = 7;
+            turnOver = false;
+            killed++;
         }
-        turnOver = true;
+        else if (!(turnOver))
+        {
+            damageGive = 0;
+            damageTake = 0;
+            EnemyAct();
+            SoundEffect.SETrigger[10] = true;
+
+            switch (enemyAct)
+            {
+                case "Attack":
+                    textLog.text = string.Format("{0}の攻撃!", eName);
+
+                    break;
+
+                case "Skill1":
+                    textLog.text = string.Format("{0}の{1}!", eName, eSkill1);
+                    break;
+
+                case "Skill2":
+                    textLog.text = string.Format("{0}の{1}!", eName, eSkill2);
+                    break;
+
+            }
+            turnOver = true;
+        }
     }
     void Phase4()
     {
-        switch (enemyAct)
+        if (pHP <= 0) { phase = 11; }
+        else if (!(turnOver))
         {
-            case "Attack":
-                damageTake = eATK;
-                if (eCharge) { damageTake *= 2; }
-                if (deffence) { damageTake /= 2; }
-                damageTake = System.Math.Max(damageTake, 1);
-                textLog.text = string.Format("{0}ダメージ受けた", damageTake);
-                pHP -= damageTake;
-                SoundEffect.SETrigger[0] = true;
-                PlayPaticle(particle1);
-                break;
+            switch (enemyAct)
+            {
+                case "Attack":
+                    damageTake = eATK;
+                    if (eCharge) { damageTake *= 2; }
+                    if (deffence) { damageTake /= 2; }
+                    damageTake = System.Math.Max(damageTake, 1);
+                    textLog.text = string.Format("{0}ダメージ受けた", damageTake);
+                    pHP -= damageTake;
+                    SoundEffect.SETrigger[0] = true;
+                    PlayPaticle(particle1);
+                    break;
 
-            case "Skill1":
-                Skill(eSkill1, "Enemy");
-                break;
+                case "Skill1":
+                    Skill(eSkill1, "Enemy");
+                    break;
 
-            case "Skill2":
-                Skill(eSkill2, "Enemy");
-                break;
+                case "Skill2":
+                    Skill(eSkill2, "Enemy");
+                    break;
 
+            }
+            turnOver = true;
         }
-        turnOver = true;
+            
     }
     void Phase5()
     {
-        if (pState == "Fire")
+        if (pHP <= 0) { phase = 11; turnOver = false; }
+        else if (!turnOver)
         {
-            pHP -= 1; 
-            textLog.text = "やけどのダメージ!";
-            SoundEffect.SETrigger[0] = true;
-            PlayPaticle(particle1);
-            turnOver = true;
-        }
-        else if (pState == "Regen")
-        {
-            pHP += 1;
-            textLog.text = "手当で1HP回復した";
-            SoundEffect.SETrigger[4] = true;
-            turnOver = true;
-        }
-        else { phase++; }
-
-
+            if (pState == "Fire")
+            {
+                pHP -= 1;
+                textLog.text = "やけどのダメージ!";
+                SoundEffect.SETrigger[0] = true;
+                PlayPaticle(particle1);
+                turnOver = true;
+            }
+            else if (pState == "Regen")
+            {
+                pHP += 1;
+                textLog.text = "手当で1HP回復した";
+                SoundEffect.SETrigger[4] = true;
+                turnOver = true;
+            }
+            else { phase++; }
+        }       
     }
     void Phase6()
     {
-        if (eState == "Fire")
+        if (eHP <= 0)
         {
-            eHP -= 1;
-            textLog.text = "敵にやけどのダメージ!";
-            SoundEffect.SETrigger[0] = true;
-            turnOver = true;
+            if (eName == "魔王")
+            {
+                gameEnd = true;
+            }
+            phase = 7;
+            turnOver = false;
+            killed++;
         }
-        else if (eState == "Regen")
+        else if (!turnOver)
         {
-            eHP += 1;
-            textLog.text = "敵は手当で1HP回復した";
-            SoundEffect.SETrigger[4] = true;
-            turnOver = true;
+            if (eState == "Fire")
+            {
+                eHP -= 1;
+                textLog.text = "敵にやけどのダメージ!";
+                SoundEffect.SETrigger[0] = true;
+                turnOver = true;
+            }
+            else if (eState == "Regen")
+            {
+                eHP += 1;
+                textLog.text = "敵は手当で1HP回復した";
+                SoundEffect.SETrigger[4] = true;
+                turnOver = true;
+            }
+            else { phase = 1; }
+            turn++;
         }
-        else { phase = 1; }
-        turn++;
+           
 
     }
     void Phase7()
@@ -534,16 +553,25 @@ public class Battle : MonoBehaviour
     }
     void Phase11() //プレイヤー死亡
     {
-        textLog.text = "プレイヤーが死亡しました";
-        nextButton.SetActive(true);
+        if (!turnOver)
+        {
+            textLog.text = "プレイヤーが死亡しました";
+            nextButton.SetActive(true);
+            turnOver = true;
+        }         
     }
+    void Phase12()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
     void Phase13() //クリアリザルト
     {
         textLog.text = "ゲームをクリアしました!";
         nextButton.SetActive(true);
     }
 
-    void SetEnemy(string spriteName)　//敵ステータス設定
+    void SetEnemy(string spriteName)　//敵の情報登録
     {
         switch (spriteName)
         {
@@ -646,7 +674,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void EnemyAct()　　//敵行動設定
+    void EnemyAct()　　//敵の行動設定
     {
         if (eName == "緑キノコ")
         {
@@ -710,9 +738,9 @@ public class Battle : MonoBehaviour
 
     }
 
-    //スキル
+    
 
-    int CheckMP(string skillName) //MPが足りているか
+    int CheckMP(string skillName) //MPが足りているかチェック
     {
         int costMP = 0;
         switch (skillName)
@@ -1258,10 +1286,10 @@ public class Battle : MonoBehaviour
         SoundEffect.SETrigger[numSE] = true;
         textLog.text = skillDesctiption;
 
-    }
-    void PlayPaticle(GameObject particle)
+    }　//スキル使用
+    void PlayPaticle(GameObject particle)//パーティクル生成
     {
-        Instantiate(particle, new Vector2(0, 0), Quaternion.identity); //パーティクル生成
+        Instantiate(particle, new Vector2(0, 0), Quaternion.identity); 
     }
     void ShowSkillInfo(string skillName)
     {
@@ -1345,7 +1373,7 @@ public class Battle : MonoBehaviour
         }
       
     }
-    void Reward3() 
+    void Reward3() 　　//3つ目の報酬の設定
     {
         switch (rnd)
         {
@@ -1381,7 +1409,7 @@ public class Battle : MonoBehaviour
 
     [SerializeField] Text finalHP, finalMP, finalATK, enemyKilled, finalScore;
     int showHP, showMP, showATK, showScore, num;
-    IEnumerator ShowResult()
+    IEnumerator ShowResult()　　//リザルト表示
     {
         if (gameEnd)
         {
@@ -1409,7 +1437,7 @@ public class Battle : MonoBehaviour
             enemyKilled.text = null;
 
             highScore = showScore;
-            PlayerPrefs.SetInt("highScore", highScore);
+            //PlayerPrefs.SetInt("highScore", highScore);
         }
     }
 
@@ -1426,7 +1454,7 @@ public class Battle : MonoBehaviour
             SoundEffect.SETrigger[8] = true;
             num++;
         }
-    }
+    }　//数値をゆっくり近づける
 
    
 

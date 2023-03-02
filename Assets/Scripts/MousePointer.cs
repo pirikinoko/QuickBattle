@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MousePointer : MonoBehaviour
 {
+    //マウスカーソル用スクリプト
     Vector3 mouse;
     public string colName { get; set; }
     [SerializeField] Battle battle;
@@ -22,7 +23,7 @@ public class MousePointer : MonoBehaviour
         mouse = Input.mousePosition;
         this.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 10));
     }
-    void OnTriggerStay2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col) //マウスカーソルが触れたUIの名前を表示(スキル説明用)
     {
         if (col.gameObject.CompareTag("UI"))
         {
