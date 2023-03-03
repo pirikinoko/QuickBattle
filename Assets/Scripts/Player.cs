@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     bool isMoving = false;
     bool hitWall = false;
     int trigger = 0;
-   
     void Start()
     {
         cameraPos = camera.transform.position;
@@ -23,7 +22,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        if (!(isMoving))
+        if (!(isMoving) && !(battle.gameEnd))
         {
             if (!(battle.inBattle))
             {
@@ -51,6 +50,9 @@ public class Player : MonoBehaviour
             yield return null;               //1フレーム待つ　→　While文で移動を一瞬で終えるのではなく1フレームずつ進む
         }
         transform.position = targetPos;
+        x = 0;
+        y = 0;
+        targetPos = transform.position;
         isMoving = false;
         hitWall=false;
     }
@@ -60,6 +62,7 @@ public class Player : MonoBehaviour
         if (col.gameObject.CompareTag("Wall"))
         {
             hitWall = true;
+            StopCoroutine("Move");
         }
        
     }

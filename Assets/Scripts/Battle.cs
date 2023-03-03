@@ -8,6 +8,7 @@ public class Battle : MonoBehaviour
 {
     MousePointer mousePointer;
     public bool inBattle { get; set; }
+    public bool gameEnd { get; set; }
     public static int phase;
     int highScore;
     public static bool turnOver = false;
@@ -23,7 +24,6 @@ public class Battle : MonoBehaviour
     public int count = 0;
     public string infoTarget { get; set; }
     public static int rewardSelect;
-    bool gameEnd;
     int turn;
     int rnd;
     int killed;
@@ -62,7 +62,7 @@ public class Battle : MonoBehaviour
     void Start()
     {
         //ハイスコアロード
-        //highScore = PlayerPrefs.GetInt("highScore", 0);
+        highScore = PlayerPrefs.GetInt("highScore", 0);
         highScoreText.text = "HighScore: " + highScore;
 
         //初期化処理
@@ -233,7 +233,7 @@ public class Battle : MonoBehaviour
     void Phase1()  //プレイヤー行動選択
     {
         if (pStan == true) { phase = 3; pStan = false; } //スタンしているなら自分のターンをスキップし敵のターン
-        if (!(turnOver))
+        else if (!(turnOver))
         {
             act = null;
             deffence = false;
@@ -1437,11 +1437,11 @@ public class Battle : MonoBehaviour
             enemyKilled.text = null;
 
             highScore = showScore;
-            //PlayerPrefs.SetInt("highScore", highScore);
+            PlayerPrefs.SetInt("highScore", highScore);
         }
     }
 
-    IEnumerator GainResultNumber(int target, int goal, Text targetText, string letter)
+    IEnumerator GainResultNumber(int target, int goal, Text targetText, string letter) 　//数値をゆっくり近づける
     {
         while(target < goal)
         {
@@ -1454,7 +1454,7 @@ public class Battle : MonoBehaviour
             SoundEffect.SETrigger[8] = true;
             num++;
         }
-    }　//数値をゆっくり近づける
+    }
 
    
 

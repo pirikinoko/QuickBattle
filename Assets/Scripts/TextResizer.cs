@@ -11,14 +11,14 @@ public class TextResizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        defaultSize = text.fontSize;
         text = this.GetComponent<Text>();
+        defaultSize = text.fontSize;
     }
 
     // Update is called once per frame
     void Update()
     {
-        countLetter = text.text.Length; 
-        text.fontSize = defaultSize - countLetter * 5;   
+        countLetter =   text.text.Length; 
+        text.fontSize = defaultSize - countLetter * 2;   
     }
 }
