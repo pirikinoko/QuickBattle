@@ -29,7 +29,7 @@ public class Battle : MonoBehaviour
     int killed;
     int damageGive, damageTake;
     //プレイヤー
-    int pHP = 15;
+    int pHP = 30;
     int pMP = 15;
     int pATK = 2;
     int pChargedTurn;
@@ -878,6 +878,8 @@ public class Battle : MonoBehaviour
                     else { skillDesctiption = string.Format("{0}ダメージ!", damageGive); }
                     slashAnim.SetTrigger("On");
                     slashAnim.SetTrigger("Off");
+                    fireAnim.SetTrigger("On");
+                    fireAnim.SetTrigger("Off");
                     numSE = 1;
 
                 }
