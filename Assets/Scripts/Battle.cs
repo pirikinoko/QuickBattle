@@ -185,7 +185,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void BattleSystem()
+    void BattleSystem() //フェーズごとに処理
     {
         switch (phase)
         {
@@ -372,7 +372,7 @@ public class Battle : MonoBehaviour
             turnOver = true;
         }
     }
-    void Phase4()
+    void Phase4()　//敵行動反映
     {
         if (pHP <= 0) { phase = 11; }
         else if (!(turnOver))
@@ -403,9 +403,9 @@ public class Battle : MonoBehaviour
         }
             
     }
-    void Phase5()
+    void Phase5()　//プレイヤー状態異常処理
     {
-        if (pHP <= 0) { phase = 11; turnOver = false; }
+        if (pHP <= 0) { phase = 11; turnOver = false; }//プレイヤー死亡処理
         else if (!turnOver)
         {
             if (pState == "Fire")
@@ -426,9 +426,9 @@ public class Battle : MonoBehaviour
             else { phase++; }
         }       
     }
-    void Phase6()
+    void Phase6()　//敵状態異常処理
     {
-        if (eHP <= 0)
+        if (eHP <= 0) //敵死亡処理
         {
             if (eName == "魔王")
             {
@@ -460,7 +460,7 @@ public class Battle : MonoBehaviour
            
 
     }
-    void Phase7()
+    void Phase7()　//敵を倒した時
     {
         if (!(turnOver))
         {
@@ -473,7 +473,7 @@ public class Battle : MonoBehaviour
     }
 
     
-    void Phase8()
+    void Phase8()　//報酬選択
     {
         nextButton.SetActive(false);
         rewardButton.SetActive(true);
@@ -510,7 +510,7 @@ public class Battle : MonoBehaviour
     
         turnOver = true;
     }
-    void Phase9()
+    void Phase9()　//報酬反映
     {
         nextButton.SetActive(true);
         rewardButton.SetActive(false);
@@ -542,7 +542,7 @@ public class Battle : MonoBehaviour
                                                                                 
 
     }
-    void Phase10()
+    void Phase10() //バトル終了
     {
         inBattle = false;
         battlePanel.SetActive(false);
