@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MousePointer : MonoBehaviour
 {
-    //マウスカーソル用スクリプト
+    //繝槭え繧ｹ繧ｫ繝ｼ繧ｽ繝ｫ逕ｨ繧ｹ繧ｯ繝ｪ繝励ヨ
     Vector3 mouse;
     public string colName { get; set; }
     [SerializeField] Battle battle;
@@ -23,7 +23,7 @@ public class MousePointer : MonoBehaviour
         mouse = Input.mousePosition;
         this.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 10));
     }
-    void OnTriggerStay2D(Collider2D col) //マウスカーソルが触れたUIの名前を表示(スキル説明用)
+    void OnTriggerStay2D(Collider2D col) //繝槭え繧ｹ繧ｫ繝ｼ繧ｽ繝ｫ縺瑚ｧｦ繧後◆UI縺ｮ蜷榊燕繧定｡ｨ遉ｺ(繧ｹ繧ｭ繝ｫ隱ｬ譏守畑)
     {
         if (col.gameObject.CompareTag("UI"))
         {

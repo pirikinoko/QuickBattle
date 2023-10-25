@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BGM : MonoBehaviour
 {
-    //BGMØ‚è‘Ö‚¦—pƒXƒNƒŠƒvƒg
+    //BGMåˆ‡ã‚Šæ›¿ãˆç”¨ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 
     AudioSource audioSource;
     public AudioClip[] music;
@@ -24,7 +24,7 @@ public class BGM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < music.Length; i++)@//BGMØ‚è‘Ö‚¦
+        for (int i = 0; i < music.Length; i++)ã€€//BGMåˆ‡ã‚Šæ›¿ãˆ
         {
             if (musicTrigger[i])
             {

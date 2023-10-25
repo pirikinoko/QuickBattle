@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         {
             if (!(battle.inBattle))
             {
-                x = Input.GetAxisRaw("Horizontal"); // Raw:u1v‚Ü‚½‚Íu-1v‚Ì“ü—Í‚ğó‚¯æ‚é ¨@ƒLƒbƒ`ƒŠˆêƒ}ƒX‚¸‚ÂˆÚ“®
+                x = Input.GetAxisRaw("Horizontal"); // Raw:ã€Œ1ã€ã¾ãŸã¯ã€Œ-1ã€ã®å…¥åŠ›ã‚’å—ã‘å–ã‚‹ â†’ã€€ã‚­ãƒƒãƒãƒªä¸€ãƒã‚¹ãšã¤ç§»å‹•
                 y = Input.GetAxisRaw("Vertical");
             }
             else { x = 0; y = 0; }
@@ -45,9 +45,9 @@ public class Player : MonoBehaviour
         targetPos = transform.position + direction;       
         while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
-            if (hitWall) { targetPos.x -= x; targetPos.y -= y; hitWall = false; }@//•Ç‚É“–‚½‚Á‚½‚çŒ³‚ÌˆÊ’u‚É–ß‚é
+            if (hitWall) { targetPos.x -= x; targetPos.y -= y; hitWall = false; }ã€€//å£ã«å½“ãŸã£ãŸã‚‰å…ƒã®ä½ç½®ã«æˆ»ã‚‹
             transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
-            yield return null;               //1ƒtƒŒ[ƒ€‘Ò‚Â@¨@While•¶‚ÅˆÚ“®‚ğˆêu‚ÅI‚¦‚é‚Ì‚Å‚Í‚È‚­1ƒtƒŒ[ƒ€‚¸‚Âi‚Ş
+            yield return null;               //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤ã€€â†’ã€€Whileæ–‡ã§ç§»å‹•ã‚’ä¸€ç¬ã§çµ‚ãˆã‚‹ã®ã§ã¯ãªã1ãƒ•ãƒ¬ãƒ¼ãƒ ãšã¤é€²ã‚€
         }
         transform.position = targetPos;
         x = 0;
@@ -68,20 +68,20 @@ public class Player : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("CameraTrigger"))@@//ƒJƒƒ‰Ø‚è‘Ö‚¦
+        if (col.gameObject.CompareTag("CameraTrigger"))ã€€ã€€//ã‚«ãƒ¡ãƒ©åˆ‡ã‚Šæ›¿ãˆ
         {
             
             if (isMoving && trigger == 0)
             {
-                if (x > 0) { cameraPos.x = col.gameObject.GetComponent<CameraTrigger>().rightX; }@//‰E‚Éi‚ñ‚Å‚é‚Æ‚«
-                else if (x < 0) { cameraPos.x = col.gameObject.GetComponent<CameraTrigger>().leftX; } //¶‚Éi‚ñ‚Å‚é‚Æ‚«
+                if (x > 0) { cameraPos.x = col.gameObject.GetComponent<CameraTrigger>().rightX; }ã€€//å³ã«é€²ã‚“ã§ã‚‹ã¨ã
+                else if (x < 0) { cameraPos.x = col.gameObject.GetComponent<CameraTrigger>().leftX; } //å·¦ã«é€²ã‚“ã§ã‚‹ã¨ã
 
-                if (y > 0) { cameraPos.y = col.gameObject.GetComponent<CameraTrigger>().upperY; }@//ã‚É‚·‚·‚ñ‚Å‚¢‚é‚Æ‚«
-                else if (y < 0) { cameraPos.y = col.gameObject.GetComponent<CameraTrigger>().lowerY; }@//‰º‚É‚·‚·‚ñ‚Å‚¢‚é‚Æ‚«
+                if (y > 0) { cameraPos.y = col.gameObject.GetComponent<CameraTrigger>().upperY; }ã€€//ä¸Šã«ã™ã™ã‚“ã§ã„ã‚‹ã¨ã
+                else if (y < 0) { cameraPos.y = col.gameObject.GetComponent<CameraTrigger>().lowerY; }ã€€//ä¸‹ã«ã™ã™ã‚“ã§ã„ã‚‹ã¨ã
                 trigger = 1;
             }
         }
-        if (col.gameObject.CompareTag("Enemy"))@//ƒVƒ“ƒ{ƒ‹ƒGƒ“ƒJƒEƒ“ƒg
+        if (col.gameObject.CompareTag("Enemy"))ã€€//ã‚·ãƒ³ãƒœãƒ«ã‚¨ãƒ³ã‚«ã‚¦ãƒ³ãƒˆ
         {
             col.gameObject.SetActive(false);
             battle.inBattle = true;

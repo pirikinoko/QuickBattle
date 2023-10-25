@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundEffect : MonoBehaviour
 {
-    //効果音呼び出しスクリプト
+    //蜉ｹ譫憺浹蜻ｼ縺ｳ蜃ｺ縺励せ繧ｯ繝ｪ繝励ヨ
 
     AudioSource audioSource;
     public AudioClip[] SE;
@@ -34,7 +34,7 @@ public class SoundEffect : MonoBehaviour
                 SETrigger[i] = false;
                 ready = false;
             }
-            else  //クールタイム中ならSEキャンセル
+            else  //繧ｯ繝ｼ繝ｫ繧ｿ繧､繝荳ｭ縺ｪ繧唄E繧ｭ繝｣繝ｳ繧ｻ繝ｫ
             {
                 SETrigger[i] = false;
             }

@@ -28,7 +28,7 @@ public class Battle : MonoBehaviour
     int rnd;
     int killed;
     int damageGive, damageTake;
-    //ƒvƒŒƒCƒ„[
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
     int pHP = 30;
     int pMP = 15;
     int pATK = 2;
@@ -38,7 +38,7 @@ public class Battle : MonoBehaviour
     bool pStan;
     bool deffence = false;
     string pState;
-    //“G
+    //æ•µ
     int eHP, eMP, eATK;
     int eChargedTurn;
     string  eSkill1, eSkill2;
@@ -48,24 +48,24 @@ public class Battle : MonoBehaviour
     bool eCharge = false;
     bool eStan;
     public static string act;
-    //ƒXƒLƒ‹
+    //ã‚¹ã‚­ãƒ«
     string skillDesctiption;
     string[] skills = new string[6];
     int skillCount;
     public static int skillClicked;
-    //ƒGƒtƒFƒNƒg,ƒAƒjƒ[ƒVƒ‡ƒ“
+    //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ,ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
     [SerializeField] GameObject particle1, particle2, anim1;
     [SerializeField] Animator slashAnim, biteAnim, fireAnim, darkAnim;
-    //ƒŠƒUƒ‹ƒg—p
+    //ãƒªã‚¶ãƒ«ãƒˆç”¨
    
     // Start is called before the first frame update
     void Start()
     {
-        //ƒnƒCƒXƒRƒAƒ[ƒh
+        //ãƒã‚¤ã‚¹ã‚³ã‚¢ãƒ­ãƒ¼ãƒ‰
         highScore = PlayerPrefs.GetInt("highScore", 0);
         highScoreText.text = "HighScore: " + highScore;
 
-        //‰Šú‰»ˆ—
+        //åˆæœŸåŒ–å‡¦ç†
         battlePanel.SetActive(false);
         battlePanelFront.SetActive(false);
         resultPanel.SetActive(false);
@@ -81,7 +81,7 @@ public class Battle : MonoBehaviour
         infoName.text = null;
         infoText.text = null;
         mousePointer = GameObject.Find("MousePoiner").GetComponent<MousePointer>();
-        skills[0] = "ƒq[ƒ‹";
+        skills[0] = "ãƒ’ãƒ¼ãƒ«";
         skillCount = 0;
         killed = 0;
         textLog.text = null;
@@ -106,11 +106,11 @@ public class Battle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ƒvƒŒƒCƒ„[&“GƒXƒe[ƒ^ƒX•\¦
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼&æ•µã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¡¨ç¤º
         playerHP.text = pHP.ToString();
         playerMP.text = pMP.ToString();
         playerATK.text = pATK.ToString();
-        if (pState == "Fire") { playerState.sprite = fire; }@@//ó‘ÔˆÙí•\¦
+        if (pState == "Fire") { playerState.sprite = fire; }ã€€ã€€//çŠ¶æ…‹ç•°å¸¸è¡¨ç¤º
         else if (pState == "Regen") { playerState.sprite = regen; }
         else { playerState.sprite = null; }
         if (inBattle)
@@ -126,7 +126,7 @@ public class Battle : MonoBehaviour
             else { enemyState.sprite = null; }
         }
         infoTarget = null;
-        for (int i = 0; i < 6; i++)  //ƒXƒLƒ‹à–¾ƒEƒBƒ“ƒhƒE
+        for (int i = 0; i < 6; i++)  //ã‚¹ã‚­ãƒ«èª¬æ˜ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
         {
             if (phase != 8)
             {
@@ -153,9 +153,9 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void StartBattle()@//‰Šú‰»
+    void StartBattle()ã€€//åˆæœŸåŒ–
     {
-        if (count == 0)@
+        if (count == 0)ã€€
         {        
             battlePanel.SetActive(true);
             battlePanelFront.SetActive(true);
@@ -177,7 +177,7 @@ public class Battle : MonoBehaviour
             spriteRenderer.sprite = enemySprite;
             SetEnemy(enemySprite.name);
             //BGM
-            if (eName == "–‚‰¤")
+            if (eName == "é­”ç‹")
             {
                 BGM.musicTrigger[2] = true;
             }
@@ -185,7 +185,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    void BattleSystem() //ƒtƒF[ƒY‚²‚Æ‚Éˆ—
+    void BattleSystem() //ãƒ•ã‚§ãƒ¼ã‚ºã”ã¨ã«å‡¦ç†
     {
         switch (phase)
         {
@@ -230,17 +230,17 @@ public class Battle : MonoBehaviour
                 break;
         }
     }
-    void Phase1()  //ƒvƒŒƒCƒ„[s“®‘I‘ğ
+    void Phase1()  //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¡Œå‹•é¸æŠ
     {
-        if (pStan == true) { phase = 3; pStan = false; } //ƒXƒ^ƒ“‚µ‚Ä‚¢‚é‚È‚ç©•ª‚Ìƒ^[ƒ“‚ğƒXƒLƒbƒv‚µ“G‚Ìƒ^[ƒ“
+        if (pStan == true) { phase = 3; pStan = false; } //ã‚¹ã‚¿ãƒ³ã—ã¦ã„ã‚‹ãªã‚‰è‡ªåˆ†ã®ã‚¿ãƒ¼ãƒ³ã‚’ã‚¹ã‚­ãƒƒãƒ—ã—æ•µã®ã‚¿ãƒ¼ãƒ³
         else if (!(turnOver))
         {
             act = null;
             deffence = false;
             if (pCharge && turn > pChargedTurn + 1) { pCharge = false; }
             if (eCharge && turn > eChargedTurn + 1) { eCharge = false; }
-            textLog.text = "s“®‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢";
-            //s“®ƒ{ƒ^ƒ“ƒAƒNƒeƒBƒu()
+            textLog.text = "è¡Œå‹•ã‚’é¸æŠã—ã¦ãã ã•ã„";
+            //è¡Œå‹•ãƒœã‚¿ãƒ³ã‚¢ã‚¯ãƒ†ã‚£ãƒ–()
             atkButton.SetActive(true);
             defButton.SetActive(true);
             skillButton.SetActive(true);
@@ -256,7 +256,7 @@ public class Battle : MonoBehaviour
         }
         
     }
-    void Phase2()  //ƒvƒŒƒCƒ„[s“®”½‰f
+    void Phase2()  //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¡Œå‹•åæ˜ 
     {
         if (!(turnOver))
         {
@@ -268,7 +268,7 @@ public class Battle : MonoBehaviour
                 case "ATK":
                     damageGive = pATK;
                     if (pCharge) { damageGive *= 2; }
-                    textLog.text = string.Format("{0}‚É{1}ƒ_ƒ[ƒW!", eName, damageGive);
+                    textLog.text = string.Format("{0}ã«{1}ãƒ€ãƒ¡ãƒ¼ã‚¸!", eName, damageGive);
                     eHP -= damageGive;
                     SoundEffect.SETrigger[1] = true;
                     slashAnim.SetTrigger("On");
@@ -277,14 +277,14 @@ public class Battle : MonoBehaviour
                     break;
 
                 case "DEF":
-                    textLog.text = "ç‚è‚ğŒÅ‚ß‚Ä‚¢‚é";
+                    textLog.text = "å®ˆã‚Šã‚’å›ºã‚ã¦ã„ã‚‹";
                     deffence = true;
                     SoundEffect.SETrigger[2] = true;
                     nextButton.SetActive(true);
                     break;
 
                 case "SKL":
-                    textLog.text = "“Á‹Z‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢";
+                    textLog.text = "ç‰¹æŠ€ã‚’é¸æŠã—ã¦ãã ã•ã„";
                     for (int i = 0; i < skillCount; i++)
                     {
                         skillSlot[i].SetActive(true);
@@ -323,7 +323,7 @@ public class Battle : MonoBehaviour
                 else
                 {
                     skillClicked = 999;
-                    textLog.text = "MP‚ª•s‘«‚µ‚Ä‚¢‚Ü‚·";
+                    textLog.text = "MPãŒä¸è¶³ã—ã¦ã„ã¾ã™";
                 }
             }
             if (turnOver && Input.GetMouseButtonDown(0)) { turnOver = false; }
@@ -332,13 +332,13 @@ public class Battle : MonoBehaviour
 
 
     }
-    void Phase3() //“Gs“®éŒ¾
+    void Phase3() //æ•µè¡Œå‹•å®£è¨€
     {
         if (eStan == true) { phase = 1; eStan = false; }
 
         else if (eHP <= 0)
         {
-            if (eName == "–‚‰¤")
+            if (eName == "é­”ç‹")
             {
                 gameEnd = true;
             }
@@ -356,23 +356,23 @@ public class Battle : MonoBehaviour
             switch (enemyAct)
             {
                 case "Attack":
-                    textLog.text = string.Format("{0}‚ÌUŒ‚!", eName);
+                    textLog.text = string.Format("{0}ã®æ”»æ’ƒ!", eName);
 
                     break;
 
                 case "Skill1":
-                    textLog.text = string.Format("{0}‚Ì{1}!", eName, eSkill1);
+                    textLog.text = string.Format("{0}ã®{1}!", eName, eSkill1);
                     break;
 
                 case "Skill2":
-                    textLog.text = string.Format("{0}‚Ì{1}!", eName, eSkill2);
+                    textLog.text = string.Format("{0}ã®{1}!", eName, eSkill2);
                     break;
 
             }
             turnOver = true;
         }
     }
-    void Phase4()@//“Gs“®”½‰f
+    void Phase4()ã€€//æ•µè¡Œå‹•åæ˜ 
     {
         if (pHP <= 0) { phase = 11; }
         else if (!(turnOver))
@@ -384,7 +384,7 @@ public class Battle : MonoBehaviour
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
                     damageTake = System.Math.Max(damageTake, 1);
-                    textLog.text = string.Format("{0}ƒ_ƒ[ƒWó‚¯‚½", damageTake);
+                    textLog.text = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸å—ã‘ãŸ", damageTake);
                     pHP -= damageTake;
                     SoundEffect.SETrigger[0] = true;
                     PlayPaticle(particle1);
@@ -403,15 +403,15 @@ public class Battle : MonoBehaviour
         }
             
     }
-    void Phase5()@//ƒvƒŒƒCƒ„[ó‘ÔˆÙíˆ—
+    void Phase5()ã€€//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼çŠ¶æ…‹ç•°å¸¸å‡¦ç†
     {
-        if (pHP <= 0) { phase = 11; turnOver = false; }//ƒvƒŒƒCƒ„[€–Sˆ—
+        if (pHP <= 0) { phase = 11; turnOver = false; }//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ­»äº¡å‡¦ç†
         else if (!turnOver)
         {
             if (pState == "Fire")
             {
                 pHP -= 1;
-                textLog.text = "‚â‚¯‚Ç‚Ìƒ_ƒ[ƒW!";
+                textLog.text = "ã‚„ã‘ã©ã®ãƒ€ãƒ¡ãƒ¼ã‚¸!";
                 SoundEffect.SETrigger[0] = true;
                 PlayPaticle(particle1);
                 turnOver = true;
@@ -419,18 +419,18 @@ public class Battle : MonoBehaviour
             else if (pState == "Regen")
             {
                 pHP += 1;
-                textLog.text = "è“–‚Å1HP‰ñ•œ‚µ‚½";
+                textLog.text = "æ‰‹å½“ã§1HPå›å¾©ã—ãŸ";
                 SoundEffect.SETrigger[4] = true;
                 turnOver = true;
             }
             else { phase++; }
         }       
     }
-    void Phase6()@//“Gó‘ÔˆÙíˆ—
+    void Phase6()ã€€//æ•µçŠ¶æ…‹ç•°å¸¸å‡¦ç†
     {
-        if (eHP <= 0) //“G€–Sˆ—
+        if (eHP <= 0) //æ•µæ­»äº¡å‡¦ç†
         {
-            if (eName == "–‚‰¤")
+            if (eName == "é­”ç‹")
             {
                 gameEnd = true;
             }
@@ -443,14 +443,14 @@ public class Battle : MonoBehaviour
             if (eState == "Fire")
             {
                 eHP -= 1;
-                textLog.text = "“G‚É‚â‚¯‚Ç‚Ìƒ_ƒ[ƒW!";
+                textLog.text = "æ•µã«ã‚„ã‘ã©ã®ãƒ€ãƒ¡ãƒ¼ã‚¸!";
                 SoundEffect.SETrigger[0] = true;
                 turnOver = true;
             }
             else if (eState == "Regen")
             {
                 eHP += 1;
-                textLog.text = "“G‚Íè“–‚Å1HP‰ñ•œ‚µ‚½";
+                textLog.text = "æ•µã¯æ‰‹å½“ã§1HPå›å¾©ã—ãŸ";
                 SoundEffect.SETrigger[4] = true;
                 turnOver = true;
             }
@@ -460,11 +460,11 @@ public class Battle : MonoBehaviour
            
 
     }
-    void Phase7()@//“G‚ğ“|‚µ‚½
+    void Phase7()ã€€//æ•µã‚’å€’ã—ãŸæ™‚
     {
         if (!(turnOver))
         {
-            textLog.text = "“G‚ğ“|‚µ‚½!";
+            textLog.text = "æ•µã‚’å€’ã—ãŸ!";
             pATK = resetAtk;
             spriteRenderer.sprite = null;
             turnOver = true;
@@ -473,17 +473,17 @@ public class Battle : MonoBehaviour
     }
 
     
-    void Phase8()@//•ñV‘I‘ğ
+    void Phase8()ã€€//å ±é…¬é¸æŠ
     {
         nextButton.SetActive(false);
         rewardButton.SetActive(true);
-        //•ñVƒ‰ƒ“ƒ_ƒ€İ’è
+        //å ±é…¬ãƒ©ãƒ³ãƒ€ãƒ è¨­å®š
         if (!(turnOver))
         {
-            textLog.text = "•ñV‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢";
+            textLog.text = "å ±é…¬ã‚’é¸æŠã—ã¦ä¸‹ã•ã„";
             rewardText[0].text = eSkill1;
             rewardText[1].text = eSkill2;
-            rnd = Random.Range(1, 7); //1`5‚Ì®”
+            rnd = Random.Range(1, 7); //1ã€œ5ã®æ•´æ•°
             switch (rnd)
             {
                 case 1:
@@ -510,7 +510,7 @@ public class Battle : MonoBehaviour
     
         turnOver = true;
     }
-    void Phase9()@//•ñV”½‰f
+    void Phase9()ã€€//å ±é…¬åæ˜ 
     {
         nextButton.SetActive(true);
         rewardButton.SetActive(false);
@@ -520,7 +520,7 @@ public class Battle : MonoBehaviour
                 skills[skillCount] = eSkill1;
                 skillText[skillCount].text = eSkill1;
                 skillCount++;          
-                textLog.text = eSkill1 + "‚ğæ“¾‚µ‚Ü‚µ‚½";
+                textLog.text = eSkill1 + "ã‚’å–å¾—ã—ã¾ã—ãŸ";
                 skillSlotMini[skillCount - 1].SetActive(true);
                 skillInStats[skillCount - 1].text = eSkill1;
                 rewardSelect = 999;
@@ -529,7 +529,7 @@ public class Battle : MonoBehaviour
                 skills[skillCount] = eSkill2;
                 skillText[skillCount].text = eSkill2;
                 skillCount++;           
-                textLog.text = eSkill2 + "‚ğæ“¾‚µ‚Ü‚µ‚½";
+                textLog.text = eSkill2 + "ã‚’å–å¾—ã—ã¾ã—ãŸ";
                 skillSlotMini[skillCount - 1].SetActive(true);
                 skillInStats[skillCount - 1].text = eSkill2;
                 rewardSelect = 999;
@@ -542,7 +542,7 @@ public class Battle : MonoBehaviour
                                                                                 
 
     }
-    void Phase10() //ƒoƒgƒ‹I—¹
+    void Phase10() //ãƒãƒˆãƒ«çµ‚äº†
     {
         inBattle = false;
         battlePanel.SetActive(false);
@@ -551,11 +551,11 @@ public class Battle : MonoBehaviour
         pState = null;
         BGM.musicTrigger[0] = true;
     }
-    void Phase11() //ƒvƒŒƒCƒ„[€–S
+    void Phase11() //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ­»äº¡
     {
         if (!turnOver)
         {
-            textLog.text = "ƒvƒŒƒCƒ„[‚ª€–S‚µ‚Ü‚µ‚½";
+            textLog.text = "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ­»äº¡ã—ã¾ã—ãŸ";
             nextButton.SetActive(true);
             turnOver = true;
         }         
@@ -565,118 +565,118 @@ public class Battle : MonoBehaviour
         SceneManager.LoadScene("Main");
     }
 
-    void Phase13() //ƒNƒŠƒAƒŠƒUƒ‹ƒg
+    void Phase13() //ã‚¯ãƒªã‚¢ãƒªã‚¶ãƒ«ãƒˆ
     {
-        textLog.text = "ƒQ[ƒ€‚ğƒNƒŠƒA‚µ‚Ü‚µ‚½!";
+        textLog.text = "ã‚²ãƒ¼ãƒ ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã—ãŸ!";
         nextButton.SetActive(true);
     }
 
-    void SetEnemy(string spriteName)@//“G‚Ìî•ñ“o˜^
+    void SetEnemy(string spriteName)ã€€//æ•µã®æƒ…å ±ç™»éŒ²
     {
         switch (spriteName)
         {
             case "GreenMush":
-                eName = "—ÎƒLƒmƒR";
+                eName = "ç·‘ã‚­ãƒã‚³";
                 eHP = 7;
                 eMP = 5;
                 eATK = 1;
-                eSkill1 = "–Xq“Š‚°";
-                eSkill2 = "ƒTƒ{‚é";
+                eSkill1 = "å¸½å­æŠ•ã’";
+                eSkill2 = "ã‚µãƒœã‚‹";
                 break;
             case "Pumpking":
-                eName = "‚©‚Ú‚¿‚á‚¨‚Î‚¯";
+                eName = "ã‹ã¼ã¡ã‚ƒãŠã°ã‘";
                 eHP = 8;
                 eMP = 3;
                 eATK = 1;
-                eSkill1 = "‚©‚İ‚Â‚­";
-                eSkill2 = "‚Â‚Ü‚İH‚¢";
+                eSkill1 = "ã‹ã¿ã¤ã";
+                eSkill2 = "ã¤ã¾ã¿é£Ÿã„";
                 break;
             case "AxeMan":
-                eName = "–Ø‚±‚è";
+                eName = "æœ¨ã“ã‚Š";
                 eHP = 18;
                 eMP = 5;
                 eATK = 3;
-                eSkill1 = "U‚èã‚°‚é";
-                eSkill2 = "R‚é";
+                eSkill1 = "æŒ¯ã‚Šä¸Šã’ã‚‹";
+                eSkill2 = "è¹´ã‚‹";
                 break;
             case "Bat":
-                eName = "ƒRƒEƒ‚ƒŠ";
+                eName = "ã‚³ã‚¦ãƒ¢ãƒª";
                 eHP = 15;
                 eMP = 9;
                 eATK = 2;
-                eSkill1 = "ƒhƒŒƒCƒ“";
-                eSkill2 = "“ª“Ë‚«";
+                eSkill1 = "ãƒ‰ãƒ¬ã‚¤ãƒ³";
+                eSkill2 = "é ­çªã";
                 break;
             case "BushiFlame":
-                eName = "‰Š‚ÌŒ•m";
+                eName = "ç‚ã®å‰£å£«";
                 eHP = 12;
                 eMP = 5;
                 eATK = 1;
-                eSkill1 = "‰Š‚Ìn";
-                eSkill2 = "‹ØƒgƒŒƒpƒ“ƒ`";
+                eSkill1 = "ç‚ã®åˆƒ";
+                eSkill2 = "ç­‹ãƒˆãƒ¬ãƒ‘ãƒ³ãƒ";
                 break;
             case "Cook":
-                eName = "—¿—l";
+                eName = "æ–™ç†äºº";
                 eHP = 10;
                 eMP = 6;
                 eATK = 1;
-                eSkill1 = "—g‚°‚½‚Ä";
-                eSkill2 = "‚Â‚Ü‚İH‚¢";
+                eSkill1 = "æšã’ãŸã¦";
+                eSkill2 = "ã¤ã¾ã¿é£Ÿã„";
                 break;
             case "Dullahan":
-                eName = "ƒfƒ…ƒ‰ƒnƒ“";
+                eName = "ãƒ‡ãƒ¥ãƒ©ãƒãƒ³";
                 eHP = 20;
                 eMP = 10;
                 eATK = 2;
-                eSkill1 = "ƒnƒCƒq[ƒ‹";
-                eSkill2 = "–‚“±’e"; 
+                eSkill1 = "ãƒã‚¤ãƒ’ãƒ¼ãƒ«";
+                eSkill2 = "é­”å°å¼¾"; 
                 break;
             case "Knight":
-                eName = "‹Rm";
+                eName = "é¨å£«";
                 eHP = 20;
                 eMP = 8;
                 eATK = 2;
-                eSkill1 = "ƒXƒ‰ƒbƒVƒ…";
-                eSkill2 = "‰Š‚Ìn";
+                eSkill1 = "ã‚¹ãƒ©ãƒƒã‚·ãƒ¥";
+                eSkill2 = "ç‚ã®åˆƒ";
                 break;
             case "Magician":
-                eName = "–‚–@g‚¢";
+                eName = "é­”æ³•ä½¿ã„";
                 eHP = 15;
                 eMP = 8;
                 eATK = 1;
-                eSkill1 = "ƒtƒ@ƒCƒA";
-                eSkill2 = "ƒ`ƒƒ[ƒW";
+                eSkill1 = "ãƒ•ã‚¡ã‚¤ã‚¢";
+                eSkill2 = "ãƒãƒ£ãƒ¼ã‚¸";
                 break;
             case "Satan":
-                eName = "–‚‰¤";
+                eName = "é­”ç‹";
                 eHP = 30;
                 eMP = 12;
                 eATK = 3;
-                eSkill1 = "–‚“±’e";
-                eSkill2 = "ƒhƒŒƒCƒ“";
+                eSkill1 = "é­”å°å¼¾";
+                eSkill2 = "ãƒ‰ãƒ¬ã‚¤ãƒ³";
                 break;
             case "Slime":
-                eName = "ƒXƒ‰ƒCƒ€";
+                eName = "ã‚¹ãƒ©ã‚¤ãƒ ";
                 eHP = 8;
                 eMP = 5;
                 eATK = 1;
-                eSkill1 = "är‚ß‚é";
-                eSkill2 = "è“–‚Ä";
+                eSkill1 = "èˆã‚ã‚‹";
+                eSkill2 = "æ‰‹å½“ã¦";
                 break;
             case "ShieldMan":
-                eName = "‚g‚¢";
+                eName = "ç›¾ä½¿ã„";
                 eHP = 20;
                 eMP = 8;
                 eATK = 1;
-                eSkill1 = "ƒXƒ^ƒ“ƒAƒ^ƒbƒN";
-                eSkill2 = "R‚é";
+                eSkill1 = "ã‚¹ã‚¿ãƒ³ã‚¢ã‚¿ãƒƒã‚¯";
+                eSkill2 = "è¹´ã‚‹";
                 break;
         }
     }
 
-    void EnemyAct()@@//“G‚Ìs“®İ’è
+    void EnemyAct()ã€€ã€€//æ•µã®è¡Œå‹•è¨­å®š
     {
-        if (eName == "—ÎƒLƒmƒR")
+        if (eName == "ç·‘ã‚­ãƒã‚³")
         {
             if(turn == 1)
             {
@@ -691,7 +691,7 @@ public class Battle : MonoBehaviour
                 enemyAct = "Attack";
             }
         }
-        else if (eName == "‚©‚Ú‚¿‚á‚¨‚Î‚¯")
+        else if (eName == "ã‹ã¼ã¡ã‚ƒãŠã°ã‘")
         {
             if(turn == 3 && eMP >= 1)
             {
@@ -706,21 +706,21 @@ public class Battle : MonoBehaviour
                 enemyAct = "Attack";
             }
         }
-        else if (eName == "–Ø‚±‚è")
+        else if (eName == "æœ¨ã“ã‚Š")
         {
             rnd = Random.Range(1, 4);
-            if (rnd == 2 && CheckMP(eSkill1) <= eMP@&& eCharge == false) { enemyAct = "Skill1"; }
+            if (rnd == 2 && CheckMP(eSkill1) <= eMPã€€&& eCharge == false) { enemyAct = "Skill1"; }
             else if (rnd == 3 && CheckMP(eSkill2) <= eMP) { enemyAct = "Skill2"; }
             else { enemyAct = "Attack"; }
         }
-        else if (eName == "ƒfƒ…ƒ‰ƒnƒ“")
+        else if (eName == "ãƒ‡ãƒ¥ãƒ©ãƒãƒ³")
         {
             rnd = Random.Range(1, 4);
             if (rnd == 2 && CheckMP(eSkill1) <= eMP && eHP < 7) { enemyAct = "Skill1"; }
             else if (rnd == 3 && CheckMP(eSkill2) <= eMP) { enemyAct = "Skill2"; }
             else { enemyAct = "Attack"; }
         }
-        else if (eName == "–‚–@g‚¢")
+        else if (eName == "é­”æ³•ä½¿ã„")
         {
             rnd = Random.Range(1, 4);
             if(turn == 1 && CheckMP(eSkill2) <= eMP) { enemyAct = "Skill2"; }
@@ -740,69 +740,69 @@ public class Battle : MonoBehaviour
 
     
 
-    int CheckMP(string skillName) //MP‚ª‘«‚è‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN
+    int CheckMP(string skillName) //MPãŒè¶³ã‚Šã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
     {
         int costMP = 0;
         switch (skillName)
         {
-            case "–Xq“Š‚°":
+            case "å¸½å­æŠ•ã’":
                 costMP = 1;
                 break;
-            case "ƒq[ƒ‹":
+            case "ãƒ’ãƒ¼ãƒ«":
                 costMP = 2;
                 break;
-            case "ƒTƒ{‚é":
+            case "ã‚µãƒœã‚‹":
                 costMP = 0;
                 break;
-            case "‚©‚İ‚Â‚­":
+            case "ã‹ã¿ã¤ã":
                 costMP = 2;
                 break;
-            case "‹ØƒgƒŒƒpƒ“ƒ`":
+            case "ç­‹ãƒˆãƒ¬ãƒ‘ãƒ³ãƒ":
                 costMP = 2;
                 break;
-            case "‰Š‚Ìn":
+            case "ç‚ã®åˆƒ":
                 costMP = 2;
                 break;
-            case "—g‚°‚½‚Ä":
+            case "æšã’ãŸã¦":
                 costMP = 2;
                 break;
-            case "ƒXƒ^ƒ“ƒAƒ^ƒbƒN":
+            case "ã‚¹ã‚¿ãƒ³ã‚¢ã‚¿ãƒƒã‚¯":
                 costMP = 4;
                 break;
-            case "ƒhƒŒƒCƒ“":
+            case "ãƒ‰ãƒ¬ã‚¤ãƒ³":
                 costMP = 4;
                 break;
-            case "R‚é":
+            case "è¹´ã‚‹":
                 costMP = 0;
                 break;
-            case "“ª“Ë‚«":
+            case "é ­çªã":
                 costMP = 1;
                 break;
-            case "är‚ß‚é":
+            case "èˆã‚ã‚‹":
                 costMP = 1;
                 break;
-            case "ƒXƒ‰ƒbƒVƒ…":
+            case "ã‚¹ãƒ©ãƒƒã‚·ãƒ¥":
                 costMP = 3;
                 break;
-            case "ƒtƒ@ƒCƒA":
+            case "ãƒ•ã‚¡ã‚¤ã‚¢":
                 costMP = 4;
                 break;
-            case "–‚“±’e":
+            case "é­”å°å¼¾":
                 costMP = 5;
                 break;
-            case "ƒnƒCƒq[ƒ‹":
+            case "ãƒã‚¤ãƒ’ãƒ¼ãƒ«":
                 costMP = 5;
                 break;
-            case "è“–‚Ä":
+            case "æ‰‹å½“ã¦":
                 costMP = 2;
                 break;
-            case "ƒ`ƒƒ[ƒW":
+            case "ãƒãƒ£ãƒ¼ã‚¸":
                 costMP = 3;
                 break;
-            case "U‚èã‚°‚é":
+            case "æŒ¯ã‚Šä¸Šã’ã‚‹":
                 costMP = 0;
                 break;
-            case "‚Â‚Ü‚İH‚¢":
+            case "ã¤ã¾ã¿é£Ÿã„":
                 costMP = 1;
                 break;
         }
@@ -816,14 +816,14 @@ public class Battle : MonoBehaviour
         switch (skillName)
         {
 
-            case "–Xq“Š‚°":
+            case "å¸½å­æŠ•ã’":
                 costMP = 1;
-                if (user == "Player")  //ƒvƒŒƒCƒ„[@¨@ƒ‚ƒ“ƒXƒ^[@‚Ì
+                if (user == "Player")  //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã€€â†’ã€€ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã€€ã®æ™‚
                 {
 
                     damageGive = pATK + 1;
                     if (pCharge) { damageGive *= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!", damageGive);
                     slashAnim.SetTrigger("On");
                     slashAnim.SetTrigger("Off");
                     numSE = 1;
@@ -834,21 +834,21 @@ public class Battle : MonoBehaviour
                     damageTake = eATK + 1;
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!", damageTake);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!", damageTake);
                     numSE = 0;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "‹ØƒgƒŒƒpƒ“ƒ`":
+            case "ç­‹ãƒˆãƒ¬ãƒ‘ãƒ³ãƒ":
                 costMP = 2;
-                if (user == "Player")  //ƒvƒŒƒCƒ„[@¨@ƒ‚ƒ“ƒXƒ^[@‚Ì
+                if (user == "Player")  //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã€€â†’ã€€ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã€€ã®æ™‚
                 {
 
                     damageGive = pATK + 1;
                     pATK += 1;
                     if (pCharge) { damageGive *= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!UŒ‚—Í‚ª1ã¸", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!æ”»æ’ƒåŠ›ãŒ1ä¸Šæ˜‡", damageGive);
                     slashAnim.SetTrigger("On");
                     slashAnim.SetTrigger("Off");
                     numSE = 1;
@@ -860,22 +860,22 @@ public class Battle : MonoBehaviour
                     eATK += 1;
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!“G‚ÌUŒ‚—Í‚ª1ã¸", damageTake);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!æ•µã®æ”»æ’ƒåŠ›ãŒ1ä¸Šæ˜‡", damageTake);
                     numSE = 0;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "‰Š‚Ìn":
+            case "ç‚ã®åˆƒ":
                 costMP = 2;
                 rnd = Random.Range(1, 3);
-                if (user == "Player")  //ƒvƒŒƒCƒ„[@¨@ƒ‚ƒ“ƒXƒ^[@‚Ì
+                if (user == "Player")  //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã€€â†’ã€€ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã€€ã®æ™‚
                 {
 
                     damageGive = pATK + 3;
                     if (pCharge) { damageGive *= 2; }
-                    if (rnd == 2) { eState = "Fire"; skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!,“G‚ğ‰Î‚³‚¹‚½!", damageGive); }
-                    else { skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!", damageGive); }
+                    if (rnd == 2) { eState = "Fire"; skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!,æ•µã‚’ç«å‚·ã•ã›ãŸ!", damageGive); }
+                    else { skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!", damageGive); }
                     slashAnim.SetTrigger("On");
                     slashAnim.SetTrigger("Off");
                     fireAnim.SetTrigger("On");
@@ -888,22 +888,22 @@ public class Battle : MonoBehaviour
                     damageTake = eATK + 3;
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
-                    if (rnd == 2) { pState = "Fire"; skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!,‰Î‚µ‚Ä‚µ‚Ü‚Á‚½!", damageTake); }
-                    else { skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!", damageTake); }
+                    if (rnd == 2) { pState = "Fire"; skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!,ç«å‚·ã—ã¦ã—ã¾ã£ãŸ!", damageTake); }
+                    else { skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!", damageTake); }
                     numSE = 0;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "—g‚°‚½‚Ä":
+            case "æšã’ãŸã¦":
                 costMP = 2;
-                if (user == "Player")  //ƒvƒŒƒCƒ„[@¨@ƒ‚ƒ“ƒXƒ^[@‚Ì
+                if (user == "Player")  //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã€€â†’ã€€ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã€€ã®æ™‚
                 {
 
                     damageGive = pATK + 1;
                     if (pCharge) { damageGive *= 2; }
                     eState = "Fire"; 
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!,“G‚ğ‰Î‚³‚¹‚½!", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!,æ•µã‚’ç«å‚·ã•ã›ãŸ!", damageGive);
                     fireAnim.SetTrigger("On");
                     fireAnim.SetTrigger("Off");
                     numSE = 1;
@@ -915,21 +915,21 @@ public class Battle : MonoBehaviour
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
                     pState = "Fire"; 
-            skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!,‰Î‚µ‚Ä‚µ‚Ü‚Á‚½!", damageTake);
+            skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!,ç«å‚·ã—ã¦ã—ã¾ã£ãŸ!", damageTake);
                     numSE = 0;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "ƒXƒ^ƒ“ƒAƒ^ƒbƒN":
+            case "ã‚¹ã‚¿ãƒ³ã‚¢ã‚¿ãƒƒã‚¯":
                 costMP = 4;
                 rnd = Random.Range(1, 3);
-                if (user == "Player")  //ƒvƒŒƒCƒ„[@¨@ƒ‚ƒ“ƒXƒ^[@‚Ì
+                if (user == "Player")  //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã€€â†’ã€€ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã€€ã®æ™‚
                 {
                     damageGive = pATK + 3;
                     if (pCharge) { damageGive *= 2; }
-                    if (rnd == 2) { eStan = true; skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!,“G‚ğƒXƒ^ƒ“‚³‚¹‚½!", damageGive); }
-                    else { skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!", damageGive); }
+                    if (rnd == 2) { eStan = true; skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!,æ•µã‚’ã‚¹ã‚¿ãƒ³ã•ã›ãŸ!", damageGive); }
+                    else { skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!", damageGive); }
                     slashAnim.SetTrigger("On");
                     slashAnim.SetTrigger("Off");
                     numSE = 1;
@@ -940,22 +940,22 @@ public class Battle : MonoBehaviour
                     damageTake = eATK + 1;
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
-                    if (rnd == 2) { pStan = true; skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!,ƒXƒ^ƒ“‚µ‚Ä‚µ‚Ü‚Á‚½!", damageTake); }
-                    else { skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW!", damageTake); }
+                    if (rnd == 2) { pStan = true; skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!,ã‚¹ã‚¿ãƒ³ã—ã¦ã—ã¾ã£ãŸ!", damageTake); }
+                    else { skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸!", damageTake); }
                     numSE = 0;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "‚©‚İ‚Â‚­":
+            case "ã‹ã¿ã¤ã":
                 costMP = 2;
-                if (user == "Player")  //ƒvƒŒƒCƒ„[@¨@ƒ‚ƒ“ƒXƒ^[@‚Ì
+                if (user == "Player")  //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã€€â†’ã€€ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã€€ã®æ™‚
                 {
 
                     damageGive = pATK + 1;
                     pHP += 1;
                     if (pCharge) { damageGive *= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW&HP‚ª1‰ñ•œ!", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸&HPãŒ1å›å¾©!", damageGive);
                     biteAnim.SetTrigger("On");
                     biteAnim.SetTrigger("Off");
                     numSE = 3;
@@ -967,21 +967,21 @@ public class Battle : MonoBehaviour
                     eHP += 1;
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW&“G‚ÌHP‚ª1‰ñ•œ!", damageTake);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸&æ•µã®HPãŒ1å›å¾©!", damageTake);
                     numSE = 3;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "ƒhƒŒƒCƒ“":
+            case "ãƒ‰ãƒ¬ã‚¤ãƒ³":
                 costMP = 4;
-                if (user == "Player")  //ƒvƒŒƒCƒ„[@¨@ƒ‚ƒ“ƒXƒ^[@‚Ì
+                if (user == "Player")  //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã€€â†’ã€€ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã€€ã®æ™‚
                 {
 
                     damageGive = pATK + 2;
                     if (pCharge) { damageGive *= 2; }
                     pHP += damageGive;
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW,HP‚ğ‹zû‚µ‚½", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸,HPã‚’å¸åã—ãŸ", damageGive);
                     darkAnim.SetTrigger("On");
                     darkAnim.SetTrigger("Off");
                     numSE = 7;
@@ -993,13 +993,13 @@ public class Battle : MonoBehaviour
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
                     eHP += damageTake;
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW,HP‚ğ‹zû‚³‚ê‚Ä‚µ‚Ü‚Á‚½", damageTake);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸,HPã‚’å¸åã•ã‚Œã¦ã—ã¾ã£ãŸ", damageTake);
                     numSE = 7;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "R‚é":
+            case "è¹´ã‚‹":
                 costMP = 0;
                
                 if (user == "Player")
@@ -1008,7 +1008,7 @@ public class Battle : MonoBehaviour
                     damageGive = pATK + 2;
                     pHP -= 1;
                     if (pCharge) { damageGive *= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW,”½“®‚ğ‚¤‚¯‚½", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸,åå‹•ã‚’ã†ã‘ãŸ", damageGive);
                     slashAnim.SetTrigger("On");
                     slashAnim.SetTrigger("Off");
                     numSE = 1;
@@ -1020,13 +1020,13 @@ public class Battle : MonoBehaviour
                     eHP -= 1;
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW,“G‚Í”½“®‚ğ‚¤‚¯‚½", damageTake);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸,æ•µã¯åå‹•ã‚’ã†ã‘ãŸ", damageTake);
                     PlayPaticle(particle1);
                     numSE = 0;
                 }
                 break;
 
-            case "“ª“Ë‚«":
+            case "é ­çªã":
                 costMP = 1;
                 if (user == "Player")
                 {
@@ -1034,7 +1034,7 @@ public class Battle : MonoBehaviour
                     damageGive = pATK + 5;
                     pHP -= 1;
                     if (pCharge) { damageGive *= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW,”½“®‚ğ‚¤‚¯‚½", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸,åå‹•ã‚’ã†ã‘ãŸ", damageGive);
                     slashAnim.SetTrigger("On");
                     slashAnim.SetTrigger("Off");
                     numSE = 1;
@@ -1046,12 +1046,12 @@ public class Battle : MonoBehaviour
                     eHP -= 1;
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW,“G‚Í”½“®‚ğ‚¤‚¯‚½", damageTake);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸,æ•µã¯åå‹•ã‚’ã†ã‘ãŸ", damageTake);
                     PlayPaticle(particle1);
                     numSE = 0;
                 }
                 break;
-            case "är‚ß‚é":
+            case "èˆã‚ã‚‹":
                 costMP = 1;
                 if (user == "Player")
                 {
@@ -1060,7 +1060,7 @@ public class Battle : MonoBehaviour
                     eMP -= 1;
                     if (pCharge) { damageGive *= 2; }
                     if (eMP < 0) { eMP = 0; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW,MP‚ğ1‰º‚°‚½I", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸,MPã‚’1ä¸‹ã’ãŸï¼", damageGive);
                     slashAnim.SetTrigger("On");
                     slashAnim.SetTrigger("Off");
                     numSE = 3;
@@ -1073,13 +1073,13 @@ public class Battle : MonoBehaviour
                     if (pMP < 0) { pMP = 0; }
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW,MP‚ğ1‰º‚°‚ç‚ê‚½I", damageTake);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸,MPã‚’1ä¸‹ã’ã‚‰ã‚ŒãŸï¼", damageTake);
                     numSE = 3;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "ƒXƒ‰ƒbƒVƒ…":
+            case "ã‚¹ãƒ©ãƒƒã‚·ãƒ¥":
                 costMP = 3;
                 if (user == "Player")
                 {
@@ -1088,7 +1088,7 @@ public class Battle : MonoBehaviour
                     eMP -= 3;
                     if (pCharge) { damageGive *= 2; }
                     if (eMP < 0) { eMP = 0; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW,MP‚ğ3‰º‚°‚½I", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸,MPã‚’3ä¸‹ã’ãŸï¼", damageGive);
                     slashAnim.SetTrigger("On");
                     slashAnim.SetTrigger("Off");
                     numSE = 3;
@@ -1101,20 +1101,20 @@ public class Battle : MonoBehaviour
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
                     if (pMP < 0) { pMP = 0; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒW,MP‚ğ3‰º‚°‚ç‚ê‚½I", damageTake);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸,MPã‚’3ä¸‹ã’ã‚‰ã‚ŒãŸï¼", damageTake);
                     numSE = 3;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "ƒtƒ@ƒCƒA":
+            case "ãƒ•ã‚¡ã‚¤ã‚¢":
                 costMP = 4;
                 if (user == "Player")
                 {
 
                     damageGive = pATK * 2;
                     if (pCharge) { damageGive *= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒWI", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸ï¼", damageGive);
                     fireAnim.SetTrigger("On");
                     fireAnim.SetTrigger("Off");
                     numSE = 7;
@@ -1125,20 +1125,20 @@ public class Battle : MonoBehaviour
                     damageTake = eATK * 2;
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒWI", damageTake);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸ï¼", damageTake);
                     numSE = 7;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "–‚“±’e":
+            case "é­”å°å¼¾":
                 costMP = 5;
                 if (user == "Player")
                 {
 
                     damageGive = pATK + 7;
                     if (pCharge) { damageGive *= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒWI", damageGive);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸ï¼", damageGive);
                     darkAnim.SetTrigger("On");
                     darkAnim.SetTrigger("Off");
                     numSE = 7;
@@ -1149,110 +1149,110 @@ public class Battle : MonoBehaviour
                     damageTake = eATK + 7;
                     if (eCharge) { damageTake *= 2; }
                     if (deffence) { damageTake /= 2; }
-                    skillDesctiption = string.Format("{0}ƒ_ƒ[ƒWI", damageTake);
+                    skillDesctiption = string.Format("{0}ãƒ€ãƒ¡ãƒ¼ã‚¸ï¼", damageTake);
                     numSE = 7;
                     PlayPaticle(particle1);
                 }
                 break;
 
-            case "ƒq[ƒ‹":
+            case "ãƒ’ãƒ¼ãƒ«":
                 costMP = 2;
                 numSE = 6;
                 if (user == "Player")
                 {
                     damageTake = -8;
-                    skillDesctiption = string.Format("{0}‰ñ•œ‚µ‚½!", -damageTake);
+                    skillDesctiption = string.Format("{0}å›å¾©ã—ãŸ!", -damageTake);
                     PlayPaticle(particle2);
                 }
                 else if (user == "Enemy")
                 {
                     damageGive = -8;
-                    skillDesctiption = string.Format("“G‚Í{0}‰ñ•œ‚µ‚½!", -damageGive);
+                    skillDesctiption = string.Format("æ•µã¯{0}å›å¾©ã—ãŸ!", -damageGive);
                 }
                 break;
 
-            case "ƒnƒCƒq[ƒ‹":
+            case "ãƒã‚¤ãƒ’ãƒ¼ãƒ«":
                 costMP = 5;
                 numSE = 6;
                 if (user == "Player")
                 {
                     damageTake = -15;
-                    skillDesctiption = string.Format("{0}‰ñ•œ‚µ‚½!", -damageTake);
+                    skillDesctiption = string.Format("{0}å›å¾©ã—ãŸ!", -damageTake);
                     PlayPaticle(particle2);
                 }
                 else if (user == "Enemy")
                 {
                     damageGive = -15;
-                    skillDesctiption = string.Format("“G‚Í{0}‰ñ•œ‚µ‚½!", -damageGive);
+                    skillDesctiption = string.Format("æ•µã¯{0}å›å¾©ã—ãŸ!", -damageGive);
                 }
                 break;
 
 
-            case "è“–‚Ä":
+            case "æ‰‹å½“ã¦":
                 costMP = 2;
                 numSE = 4;
                 if (user == "Player")
                 {
                     pState = "Regen";
-                    skillDesctiption = string.Format("è“–‚Ä‚µ‚Ä‚¢‚é");
+                    skillDesctiption = string.Format("æ‰‹å½“ã¦ã—ã¦ã„ã‚‹");
                 }
                 else if (user == "Enemy")
                 {
                     eState = "Regen";
-                    skillDesctiption = string.Format("“G‚Íè“–‚Ä‚µ‚Ä‚¢‚é");
+                    skillDesctiption = string.Format("æ•µã¯æ‰‹å½“ã¦ã—ã¦ã„ã‚‹");
                 }
                 break;
-            case "ƒ`ƒƒ[ƒW":
+            case "ãƒãƒ£ãƒ¼ã‚¸":
                 costMP = 3;
                 numSE = 6;
                 if (user == "Player")
                 {
                     pATK += 2;
-                    skillDesctiption = string.Format("UŒ‚—Í‚ª2ã¸");
+                    skillDesctiption = string.Format("æ”»æ’ƒåŠ›ãŒ2ä¸Šæ˜‡");
                 }
                 else if (user == "Enemy")
                 {
                     eATK += 2;
-                    skillDesctiption = string.Format("“G‚ÌUŒ‚—Í‚ª2ã¸");
+                    skillDesctiption = string.Format("æ•µã®æ”»æ’ƒåŠ›ãŒ2ä¸Šæ˜‡");
                 }
                 break;
 
-            case "U‚èã‚°‚é":
+            case "æŒ¯ã‚Šä¸Šã’ã‚‹":
                 costMP = 0;
                 numSE = 4;
                 if (user == "Player")
                 {
                     pCharge = true;
                     pChargedTurn = turn;
-                    skillDesctiption = string.Format("U‚èã‚°‚Ä‚¢‚é");
+                    skillDesctiption = string.Format("æŒ¯ã‚Šä¸Šã’ã¦ã„ã‚‹");
                 }
                 else if (user == "Enemy")
                 {
                     eCharge = true;
                     eChargedTurn = turn;
-                    skillDesctiption = string.Format("“G‚ÍU‚èã‚°‚Ä‚¢‚é");
+                    skillDesctiption = string.Format("æ•µã¯æŒ¯ã‚Šä¸Šã’ã¦ã„ã‚‹");
                 }
                 break;
 
-            case "‚Â‚Ü‚İH‚¢":
+            case "ã¤ã¾ã¿é£Ÿã„":
                 costMP = 1;
                 numSE = 3;
                 rnd = Random.Range(1, 3);
                 if (user == "Player")
                 {
                     damageTake = -6;
-                    skillDesctiption = string.Format("{0}‰ñ•œ‚µ‚½!", -damageTake);
-                    if (rnd == 2) { pState = "Fire"; skillDesctiption = string.Format("{0}‰ñ•œ‚µ‚½‚ª‰Î‚µ‚Ä‚µ‚Ü‚Á‚½", -damageTake); }
+                    skillDesctiption = string.Format("{0}å›å¾©ã—ãŸ!", -damageTake);
+                    if (rnd == 2) { pState = "Fire"; skillDesctiption = string.Format("{0}å›å¾©ã—ãŸãŒç«å‚·ã—ã¦ã—ã¾ã£ãŸ", -damageTake); }
                     Instantiate(particle2, new Vector2(0, 0), Quaternion.identity);
                 }
                 else if (user == "Enemy")
                 {
                     damageGive = -6;
-                    skillDesctiption = string.Format("{0}‰ñ•œ‚µ‚½!", -damageGive);
-                    if (rnd == 2) { eState = "Fire"; skillDesctiption = string.Format("“G‚Í{0}‰ñ•œ‚µ‚½‚ª‰Î‚µ‚Ä‚µ‚Ü‚Á‚½", -damageGive); }
+                    skillDesctiption = string.Format("{0}å›å¾©ã—ãŸ!", -damageGive);
+                    if (rnd == 2) { eState = "Fire"; skillDesctiption = string.Format("æ•µã¯{0}å›å¾©ã—ãŸãŒç«å‚·ã—ã¦ã—ã¾ã£ãŸ", -damageGive); }
                 }
                 break;
-            case "ƒTƒ{‚é":
+            case "ã‚µãƒœã‚‹":
                 rnd = Random.Range(1, 4);
                 numSE = 4;
                 costMP = 0;
@@ -1262,9 +1262,9 @@ public class Battle : MonoBehaviour
                     {
                         pHP += 1;
                         pMP += 1;
-                        skillDesctiption = ("HP‚ÆMP‚ª1‰ñ•œ‚µ‚½!");
+                        skillDesctiption = ("HPã¨MPãŒ1å›å¾©ã—ãŸ!");
                     }
-                    else { skillDesctiption = ("ƒTƒ{‚Á‚Ä‚¢‚é!"); }
+                    else { skillDesctiption = ("ã‚µãƒœã£ã¦ã„ã‚‹!"); }
 
                 }
                 else if (user == "Enemy")
@@ -1273,23 +1273,23 @@ public class Battle : MonoBehaviour
                     {
                         eHP += 1;
                         eMP += 1;
-                        skillDesctiption = ("“G‚ÌHP‚ÆMP‚ª1‰ñ•œ‚µ‚½!");
+                        skillDesctiption = ("æ•µã®HPã¨MPãŒ1å›å¾©ã—ãŸ!");
                     }
-                    else { skillDesctiption = ("ƒTƒ{‚Á‚Ä‚¢‚é!"); }
+                    else { skillDesctiption = ("ã‚µãƒœã£ã¦ã„ã‚‹!"); }
                 }
 
                 break;
         }
 
-        if (deffence && damageTake != 0) { damageTake = System.Math.Max(damageTake, 1); }  //–hŒäÅ¬‚Í‚Pƒ_ƒ[ƒW
-        pHP -= damageTake; eHP -= damageGive;@@@
+        if (deffence && damageTake != 0) { damageTake = System.Math.Max(damageTake, 1); }  //é˜²å¾¡æ™‚æœ€å°ã¯ï¼‘ãƒ€ãƒ¡ãƒ¼ã‚¸
+        pHP -= damageTake; eHP -= damageGive;ã€€ã€€ã€€
         if (user == "Player") { pMP -= costMP; }
         else { eMP -= costMP; }
         SoundEffect.SETrigger[numSE] = true;
         textLog.text = skillDesctiption;
 
-    }@//ƒXƒLƒ‹g—p
-    void PlayPaticle(GameObject particle)//ƒp[ƒeƒBƒNƒ‹¶¬
+    }ã€€//ã‚¹ã‚­ãƒ«ä½¿ç”¨
+    void PlayPaticle(GameObject particle)//ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ç”Ÿæˆ
     {
         Instantiate(particle, new Vector2(0, 0), Quaternion.identity); 
     }
@@ -1302,69 +1302,69 @@ public class Battle : MonoBehaviour
             int costMP = 0;
             switch (skillName)
             {
-                case "–Xq“Š‚°":                 
-                    infoText.text = "UŒ‚—Í + 1‚Ìƒ_ƒ[ƒW";
+                case "å¸½å­æŠ•ã’":                 
+                    infoText.text = "æ”»æ’ƒåŠ› + 1ã®ãƒ€ãƒ¡ãƒ¼ã‚¸";
                     break;
-                case "ƒq[ƒ‹":
-                    infoText.text = "8HP‰ñ•œ";    
+                case "ãƒ’ãƒ¼ãƒ«":
+                    infoText.text = "8HPå›å¾©";    
                     break;
-                case "ƒTƒ{‚é":
-                    infoText.text = "‚½‚Ü‚ÉHP‚ÆMP‚ª1‰ñ•œ‚·‚é";
+                case "ã‚µãƒœã‚‹":
+                    infoText.text = "ãŸã¾ã«HPã¨MPãŒ1å›å¾©ã™ã‚‹";
                     break;
-                case "‚©‚İ‚Â‚­":
-                    infoText.text = "UŒ‚—Í + 1‚Ìƒ_ƒ[ƒW,1HP‰ñ•œ";
+                case "ã‹ã¿ã¤ã":
+                    infoText.text = "æ”»æ’ƒåŠ› + 1ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,1HPå›å¾©";
                     break;
-                case "‚Â‚Ü‚İH‚¢":
-                    infoText.text = "6HP‰ñ•œ‚·‚é‚ª,Šm—¦‚Å‰Î";
+                case "ã¤ã¾ã¿é£Ÿã„":
+                    infoText.text = "6HPå›å¾©ã™ã‚‹ãŒ,ç¢ºç‡ã§ç«å‚·";
                     break;
-                case "‹ØƒgƒŒƒpƒ“ƒ`":
-                    infoText.text = "UŒ‚—Í + 1‚Ìƒ_ƒ[ƒW,UŒ‚—Í1‘‰Á";
+                case "ç­‹ãƒˆãƒ¬ãƒ‘ãƒ³ãƒ":
+                    infoText.text = "æ”»æ’ƒåŠ› + 1ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,æ”»æ’ƒåŠ›1å¢—åŠ ";
                     break;
-                case "‰Š‚Ìn":
-                    infoText.text = "UŒ‚—Í + 3‚Ìƒ_ƒ[ƒW,Šm—¦‚Å‰Î";
+                case "ç‚ã®åˆƒ":
+                    infoText.text = "æ”»æ’ƒåŠ› + 3ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,ç¢ºç‡ã§ç«å‚·";
                     break;
-                case "—g‚°‚½‚Ä":
-                    infoText.text = "UŒ‚—Í + 1‚Ìƒ_ƒ[ƒW,‰Î•t—^";
+                case "æšã’ãŸã¦":
+                    infoText.text = "æ”»æ’ƒåŠ› + 1ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,ç«å‚·ä»˜ä¸";
                     break;
-                case "ƒXƒ^ƒ“ƒAƒ^ƒbƒN":
-                    infoText.text = "UŒ‚—Í + 3‚Ìƒ_ƒ[ƒW,Šm—¦‚ÅƒXƒ^ƒ“•t—^";
+                case "ã‚¹ã‚¿ãƒ³ã‚¢ã‚¿ãƒƒã‚¯":
+                    infoText.text = "æ”»æ’ƒåŠ› + 3ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,ç¢ºç‡ã§ã‚¹ã‚¿ãƒ³ä»˜ä¸";
                     break;
-                case "ƒhƒŒƒCƒ“":
-                    infoText.text = "UŒ‚—Í + 3‚Ìƒ_ƒ[ƒW,—^‚¦‚½ƒ_ƒ[ƒW‚Ì•ª‰ñ•œ‚·‚é";
+                case "ãƒ‰ãƒ¬ã‚¤ãƒ³":
+                    infoText.text = "æ”»æ’ƒåŠ› + 3ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,ä¸ãˆãŸãƒ€ãƒ¡ãƒ¼ã‚¸ã®åˆ†å›å¾©ã™ã‚‹";
                     break;
-                case "R‚é":
-                    infoText.text = "UŒ‚—Í + 2‚Ìƒ_ƒ[ƒW,”½“®‚ğó‚¯‚é";
+                case "è¹´ã‚‹":
+                    infoText.text = "æ”»æ’ƒåŠ› + 2ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,åå‹•ã‚’å—ã‘ã‚‹";
                     break;
-                case "“ª“Ë‚«":
-                    infoText.text = "UŒ‚—Í + 5‚Ìƒ_ƒ[ƒW,”½“®‚ğó‚¯‚é";
+                case "é ­çªã":
+                    infoText.text = "æ”»æ’ƒåŠ› + 5ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,åå‹•ã‚’å—ã‘ã‚‹";
                     break;
-                case "är‚ß‚é":
-                    infoText.text = "UŒ‚—Í + 1‚Ìƒ_ƒ[ƒW,MP‚ğ1í‚é";
+                case "èˆã‚ã‚‹":
+                    infoText.text = "æ”»æ’ƒåŠ› + 1ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,MPã‚’1å‰Šã‚‹";
                     break;
-                case "ƒXƒ‰ƒbƒVƒ…":
-                    infoText.text = "UŒ‚—Í + 5‚Ìƒ_ƒ[ƒW,MP‚ğ3í‚é";
+                case "ã‚¹ãƒ©ãƒƒã‚·ãƒ¥":
+                    infoText.text = "æ”»æ’ƒåŠ› + 5ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,MPã‚’3å‰Šã‚‹";
                     break;
-                case "ƒtƒ@ƒCƒA":
-                    infoText.text = "UŒ‚—Í ~ 2‚Ìƒ_ƒ[ƒW";
+                case "ãƒ•ã‚¡ã‚¤ã‚¢":
+                    infoText.text = "æ”»æ’ƒåŠ› Ã— 2ã®ãƒ€ãƒ¡ãƒ¼ã‚¸";
                     break;
-                case "–‚“¹’e":
-                    infoText.text = "UŒ‚—Í + 7‚Ìƒ_ƒ[ƒW,MP‚ğ3í‚é";
+                case "é­”å°å¼¾":
+                    infoText.text = "æ”»æ’ƒåŠ› + 7ã®ãƒ€ãƒ¡ãƒ¼ã‚¸,MPã‚’3å‰Šã‚‹";
                     break;
-                case "ƒnƒCƒq[ƒ‹":
-                    infoText.text = "15HP‰ñ•œ‚·‚é";
+                case "ãƒã‚¤ãƒ’ãƒ¼ãƒ«":
+                    infoText.text = "15HPå›å¾©ã™ã‚‹";
                     break;
-                case "è“–‚Ä":
-                    infoText.text = "–ˆƒ^[ƒ“1HP‰ñ•œ‚·‚é,‰Î‚ğ’¼‚¹‚é";
+                case "æ‰‹å½“ã¦":
+                    infoText.text = "æ¯ã‚¿ãƒ¼ãƒ³1HPå›å¾©ã™ã‚‹,ç«å‚·ã‚’ç›´ã›ã‚‹";
                     break;
-                case "ƒ`ƒƒ[ƒW":
-                    infoText.text = "UŒ‚—Í‚ª2‘‰Á(í“¬’†)";
+                case "ãƒãƒ£ãƒ¼ã‚¸":
+                    infoText.text = "æ”»æ’ƒåŠ›ãŒ2å¢—åŠ (æˆ¦é—˜ä¸­)";
                     break;
-                case "U‚èã‚°‚é":
-                    infoText.text = "Ÿ‚Ìƒ^[ƒ“‚ÌUŒ‚‚ª2”{‚Ìƒ_ƒ[ƒW";
+                case "æŒ¯ã‚Šä¸Šã’ã‚‹":
+                    infoText.text = "æ¬¡ã®ã‚¿ãƒ¼ãƒ³ã®æ”»æ’ƒãŒ2å€ã®ãƒ€ãƒ¡ãƒ¼ã‚¸";
                     break;
             }
             costMP = CheckMP(skillName);
-            infoMP.text = "Á”ïMP: " + costMP.ToString();
+            infoMP.text = "æ¶ˆè²»MP: " + costMP.ToString();
         }
         else
         {
@@ -1375,35 +1375,35 @@ public class Battle : MonoBehaviour
         }
       
     }
-    void Reward3() @@//3‚Â–Ú‚Ì•ñV‚Ìİ’è
+    void Reward3() ã€€ã€€//3ã¤ç›®ã®å ±é…¬ã®è¨­å®š
     {
         switch (rnd)
         {
             case 1:
                 pHP += 10;
-                textLog.text = "HP‚ª10‰ñ•œ‚µ‚½!";
+                textLog.text = "HPãŒ10å›å¾©ã—ãŸ!";
                 break;
             case 2:
                 pMP += 10;
-                textLog.text = "MP‚ª10‰ñ•œ‚µ‚½!";
+                textLog.text = "MPãŒ10å›å¾©ã—ãŸ!";
                 break;
             case 3:
                 pHP += 7; pMP += 7;
-                textLog.text = "HP‚ÆMP‚ª7‰ñ•œ‚µ‚½!";
+                textLog.text = "HPã¨MPãŒ7å›å¾©ã—ãŸ!";
                 break;
             case 4:
                 pATK += 1;
                 resetAtk += 1;
-                textLog.text = "UŒ‚—Í‚ª1‘‰Á‚µ‚½!";
+                textLog.text = "æ”»æ’ƒåŠ›ãŒ1å¢—åŠ ã—ãŸ!";
                 break;
             case 5:
                 pHP += 10; pMP += 10;
-                textLog.text = "HP‚ÆMP‚ª10‰ñ•œ‚µ‚½!";
+                textLog.text = "HPã¨MPãŒ10å›å¾©ã—ãŸ!";
                 break;
             case 6:
                 pATK += 1;
                 resetAtk += 1;
-                textLog.text = "UŒ‚—Í‚ª1‘‰Á‚µ‚½!";
+                textLog.text = "æ”»æ’ƒåŠ›ãŒ1å¢—åŠ ã—ãŸ!";
                 break;
 
         }
@@ -1411,7 +1411,7 @@ public class Battle : MonoBehaviour
 
     [SerializeField] Text finalHP, finalMP, finalATK, enemyKilled, finalScore;
     int showHP, showMP, showATK, showScore, num;
-    IEnumerator ShowResult()@@//ƒŠƒUƒ‹ƒg•\¦
+    IEnumerator ShowResult()ã€€ã€€//ãƒªã‚¶ãƒ«ãƒˆè¡¨ç¤º
     {
         if (gameEnd)
         {
@@ -1429,12 +1429,12 @@ public class Battle : MonoBehaviour
             yield return StartCoroutine(GainResultNumber(showATK, pATK, finalATK, "ATK: "));
             yield return new WaitForSeconds(1.0f);
             showScore = pHP * 10 + pMP * 10 + (pATK * 30);
-            finalScore.text = "ƒXƒRƒA: " + showScore;
-            enemyKilled.text = "~"+killed + "kill";
+            finalScore.text = "ã‚¹ã‚³ã‚¢: " + showScore;
+            enemyKilled.text = "Ã—"+killed + "kill";
             SoundEffect.SETrigger[10] = true;
             yield return new WaitForSeconds(2.0f);
             showScore *= killed;
-            finalScore.text = "ƒXƒRƒA: " + showScore;
+            finalScore.text = "ã‚¹ã‚³ã‚¢: " + showScore;
             SoundEffect.SETrigger[8] = true;
             enemyKilled.text = null;
 
@@ -1443,7 +1443,7 @@ public class Battle : MonoBehaviour
         }
     }
 
-    IEnumerator GainResultNumber(int target, int goal, Text targetText, string letter) @//”’l‚ğ‚ä‚Á‚­‚è‹ß‚Ã‚¯‚é
+    IEnumerator GainResultNumber(int target, int goal, Text targetText, string letter) ã€€//æ•°å€¤ã‚’ã‚†ã£ãã‚Šè¿‘ã¥ã‘ã‚‹
     {
         while(target < goal)
         {
