@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraTrigger : MonoBehaviour
 {
-    public int upperY;
-    public int lowerY;
-    public int rightX;
-    public int leftX;
+    public int xDiff;
+    public int yDiff;
 }

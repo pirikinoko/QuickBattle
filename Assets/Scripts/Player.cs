@@ -34,7 +34,6 @@ public class Player : MonoBehaviour
             StartCoroutine(Move(new Vector2(x, y)));
         }
         if(x == 0 && y == 0) { trigger = 0; }
-        if(x != lastY) { trigger = 0; }
         camera.transform.position = cameraPos;
         lastY = y;
     }
@@ -55,6 +54,7 @@ public class Player : MonoBehaviour
         targetPos = transform.position;
         isMoving = false;
         hitWall=false;
+        trigger = 0;
     }
 
     void OnCollisionStay2D(Collision2D col)
@@ -73,11 +73,11 @@ public class Player : MonoBehaviour
             
             if (isMoving && trigger == 0)
             {
-                if (x > 0) { cameraPos.x = col.gameObject.GetComponent<CameraTrigger>().rightX; }　//右に進んでるとき
-                else if (x < 0) { cameraPos.x = col.gameObject.GetComponent<CameraTrigger>().leftX; } //左に進んでるとき
+                if (x > 0) { cameraPos.x += col.gameObject.GetComponent<CameraTrigger>().xDiff; }　//右に進んでるとき
+                else if (x < 0) { cameraPos.x -= col.gameObject.GetComponent<CameraTrigger>().xDiff; } //左に進んでるとき
 
-                if (y > 0) { cameraPos.y = col.gameObject.GetComponent<CameraTrigger>().upperY; }　//上にすすんでいるとき
-                else if (y < 0) { cameraPos.y = col.gameObject.GetComponent<CameraTrigger>().lowerY; }　//下にすすんでいるとき
+                if (y > 0) { cameraPos.y += col.gameObject.GetComponent<CameraTrigger>().yDiff; }　//上にすすんでいるとき
+                else if (y < 0) { cameraPos.y -= col.gameObject.GetComponent<CameraTrigger>().yDiff; }　//下にすすんでいるとき
                 trigger = 1;
             }
         }

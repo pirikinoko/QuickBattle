@@ -4,7 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Button : MonoBehaviour
 {
-
+    //キー入力に対応
+    void InputKey()
+    {
+        if (this.gameObject.name == "ATKButton")
+        {
+        }
+    }
+ 
     public void ATK()
     {
         Battle.turnOver = false;
